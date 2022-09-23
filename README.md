@@ -45,6 +45,17 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+
+## Access Swagger Documentation
+
+>> http://localhost:3000/api/#/
+
+
+## Access API
+
+>> http://localhost:3000/users
+
+
 ## Test
 
 ```bash
