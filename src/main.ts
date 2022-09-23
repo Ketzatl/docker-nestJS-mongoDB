@@ -1,10 +1,22 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const PORT = 3000;
   app.enableCors();
+
+  const options = new DocumentBuilder()
+      .setTitle('NestJS / Docker API')
+      .setDescription('A NestJS/Docker API exercice')
+      .setVersion('1.0.0')
+      .addTag('NestJS-API')
+      .build();
+
+  const document = SwaggerModule.createDocument(app, options);
+    SwaggerModule.setup('api', app, document);
+
   await app.listen(PORT);
 
 
