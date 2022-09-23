@@ -1,7 +1,7 @@
 import {Delete, Injectable, Param} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User } from './user.model';
+import {User} from "./user.interface";
 
 @Injectable()
 export class UsersService {
@@ -18,11 +18,12 @@ export class UsersService {
         return createdUser.save();
     }
 
-    /**
-     * Find all users
-     */
     async findAll(): Promise<User[]> {
         return this.userModel.find().exec();
+    }
+
+    async findOne(userId: string): Promise<User> {
+        return this.userModel.findById(userId);
     }
 
     async delete(userId: string): Promise<User> {
