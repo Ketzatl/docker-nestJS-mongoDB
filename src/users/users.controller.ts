@@ -9,7 +9,8 @@ import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
-    constructor(private readonly usersService: UsersService) {}
+    constructor(private readonly usersService: UsersService) {
+    }
 
     @Post()
     async createOneUser(
@@ -17,16 +18,16 @@ export class UsersController {
         @Body('email') email: string,
         @Body('password') password: string,
     ) {
-        const generatedId = await this.usersService.createOneUser(
+        const generatedId = await this.usersService.create(
             name,
             email,
             password,
         );
-        return { id: generatedId };
+        return {id: generatedId};
     }
 
     @Get()
     getAllUsers() {
-        return this.usersService.getAllUsers();
+        return this.usersService.findAll();
     }
-
+}
