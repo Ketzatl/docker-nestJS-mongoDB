@@ -26,4 +26,9 @@ export class UsersController {
     async findAll(): Promise<any> {
         return this.usersService.findAll();
     }
+
+    @Delete(':id')
+    async deleteProduct(@Param('id') id: string) {
+        return this.usersService.delete(id);
+    }
 }

@@ -7,6 +7,7 @@ export const UserSchema = new moongose.Schema({
 });
 
 export interface User extends moongose.Document {
+    _id?: string;
     name: string;
     email: string;
     password: string;
