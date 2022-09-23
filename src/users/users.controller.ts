@@ -1,9 +1,12 @@
+
 import {
     Controller,
     Post,
     Body,
     Get,
     Param,
+    Patch,
+    Delete,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 
@@ -12,21 +15,20 @@ export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
     @Post()
-    async createOneUser(
-        @Body('name') name: string,
-        @Body('email') email: string,
-        @Body('password') password: string,
-    ) {
-        const generatedId = await this.usersService.createOneUser(
-            name,
-            email,
-            password,
-        );
+    async create(@Body('name') name: string,
+                 @Body('email') email: string,
+                 @Body('password') password: string) {
+        const generatedId = await this.usersService.create(name, email, password);
         return { id: generatedId };
     }
 
     @Get()
-    getAllUsers() {
-        return this.usersService.getAllUsers();
+    async findAll(): Promise<any> {
+        return this.usersService.findAll();
     }
 
+    @Delete(':id')
+    async deleteProduct(@Param('id') id: string) {
+        return this.usersService.delete(id);
+    }
+}

@@ -1,14 +1,14 @@
-import * as mongoose from 'mongoose';
+import * as moongose from 'mongoose';
 
-export const UserSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    surname: { type: String, required: true },
-    points: { type: Number, required: true },
+export const UserSchema = new moongose.Schema({
+    name: String,
+    email: String,
+    password: String,
 });
 
-export interface User extends mongoose.Document {
-    id: string;
+export interface User extends moongose.Document {
+    _id?: string;
     name: string;
-    surname: string;
-    points: number;
+    email: string;
+    password: string;
 }
