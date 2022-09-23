@@ -7,17 +7,18 @@ import {
     Patch,
     Delete,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
+import {UsersService} from './users.service';
 import {ApiBody, ApiCreatedResponse, ApiOperation, ApiParam, ApiResponse, ApiTags} from "@nestjs/swagger";
 import {CreateUSerDto} from "./user.dto";
 
 @ApiTags('-- Users Module --')
 @Controller('users')
 export class UsersController {
-    constructor(private readonly usersService: UsersService) {}
+    constructor(private readonly usersService: UsersService) {
+    }
 
     @Post()
-    @ApiOperation({ summary: 'Add new User' })
+    @ApiOperation({summary: 'Add new User'})
     // @ApiCreatedResponse({ description: 'User Registration' })
     @ApiBody({
         schema: {
@@ -57,14 +58,41 @@ export class UsersController {
                  @Body('email') email: string,
                  @Body('password') password: string) {
         const generatedId = await this.usersService.create(name, email, password);
-        return { id: generatedId };
+        return {id: generatedId};
     }
 
     @Get()
-    @ApiOperation({ summary: 'get All Users' })
+    @ApiOperation({summary: 'get All Users'})
     @ApiResponse({
         status: 200,
-        description: 'Get All Users <User[]>'
+        description: 'Get All Users <User[]>', schema: {
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    id: {
+                        type: 'string',
+                        example: '5f9f1b9b9c9c1c1c8c8c8c8c',
+                        description: 'User ID',
+                    },
+                    name: {
+                        type: 'string',
+                        example: 'John Doe',
+                        description: 'User Name',
+                    },
+                    email: {
+                        type: 'string',
+                        example: 'example@example.com',
+                        description: 'User Email',
+                    },
+                    password: {
+                        type: 'string',
+                        example: '123456',
+                        description: 'User Password',
+                    }
+                }
+            }
+        }
     })
     @ApiResponse({
         status: 403,
@@ -79,7 +107,7 @@ export class UsersController {
     }
 
     @Get(':id')
-    @ApiOperation({ summary: 'Get User by ID' })
+    @ApiOperation({summary: 'Get User by ID'})
     @ApiParam({
         name: 'id',
         type: String,
@@ -104,7 +132,7 @@ export class UsersController {
     }
 
     @Delete(':id')
-    @ApiOperation({ summary: 'Delete User by ID' })
+    @ApiOperation({summary: 'Delete User by ID'})
     @ApiParam({
         name: 'id',
         type: String,
